@@ -6,10 +6,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/gorilla/websocket"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"github.com/gorilla/websocket"
 )
 
 //NewStream creates new instance of VkStream. Use this if you already know the endpoint and have the key
@@ -23,8 +24,8 @@ func NewStream(endpoint string, key string) *VkStream {
 //NewStreamWithToken creates new instance of VkStream. Use this if you don't have the endpoint and the key.
 //
 //It requires an accessToken. It's named "Service token" and could be obtained from the app settings page (https://vk.com/apps?act=manage)
-func NewStreamWithToken(accessToken string) (*VkStream, error) {
-	resp, err := http.Get("https://api.vk.com/method/streaming.getServerUrl?access_token=" + accessToken + "&v=5.74")
+func NewStreamWithToken(accessToken, versionAPI string) (*VkStream, error) {
+	resp, err := http.Get("https://api.vk.com/method/streaming.getServerUrl?access_token=" + accessToken + "&v=" + versionAPI)
 	if err != nil {
 		return nil, err
 	}
